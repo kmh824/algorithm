@@ -1,5 +1,5 @@
 /**
- * baekjoon10828
+ * baekjoon10828 스택
  */
 import java.io.BufferedReader;
 import java.io.IOException;
