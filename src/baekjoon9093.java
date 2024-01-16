@@ -1,5 +1,5 @@
 /**
- * baekjoon9093
+ * baekjoon9093 단어 뒤집기
  */
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
