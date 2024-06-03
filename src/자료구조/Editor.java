@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 // StringBuilder 사용
@@ -39,41 +40,41 @@ public class Editor {
 }
 */
 
+// LinkedList / ListIterator 사용
 public class Editor {
-    private static List<String> list = new LinkedList<>();
-
-    public Editor() {
-    }
-
-    private void L(int cursor) {
-        if (cursor > 0){cursor --;}
-    }
-
-    private void D(int cursor, List<String> list) {
-        if(cursor < list.size()) {cursor ++;}
-    }
-
-    private void B(int cursor) {
-
-    }
-    private void P(int cursor) {
-
-    }
-
-
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String str = br.readLine();
-        StringTokenizer token = new StringTokenizer(str);
-        ListIterator<String> iterator = list.listIterator();
+        LinkedList<Character> list = new LinkedList<>();
 
+        for (char c : br.readLine().toCharArray()) {
+            list.add(c);
+        }
+        ListIterator<Character> iterator = list.listIterator(list.size());
 
-        Editor editor = new Editor();
-        list.add(str);
-        System.out.println(list);
-        editor.L(0);
-        editor.D(0,list);
+        int n = Integer.parseInt(br.readLine());
 
+        while(n -- != 0){
+            StringTokenizer token = new StringTokenizer(br.readLine());
 
+            switch(token.nextToken()){
+                case "L" : if(iterator.hasPrevious()){iterator.previous();} break;
+                case "D" : if(iterator.hasNext()){iterator.next();} break;
+                case "B" :
+                    if(iterator.hasPrevious()){
+                        iterator.previous();
+                        iterator.remove();
+                    } break;
+                case "P" :
+                    if(token.hasMoreTokens()){
+                        iterator.add(token.nextToken().charAt(0));
+                    }
+                    break;
+            }
+        }
+        String result = list.stream()
+                .map(Object::toString)
+                .collect(Collectors.joining());
+
+        System.out.println(result);
     }
 }
