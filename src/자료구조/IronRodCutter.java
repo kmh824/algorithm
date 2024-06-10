@@ -1,45 +1,38 @@
 package 자료구조;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.util.Stack;
 
+//()(((()())(())()))(())
+/*
+1. 문장을 차례로 읽으면서 레이저가 현재 자를 수 있는 막대기 수를 파악.
+2. 막대기의 끝을 파악하면 result +1 (막대기를 모두 자르고 나면 레이저의 수보다 1조각 더 나오기 때문)
+ */
 public class IronRodCutter {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
-        sb.append(br.readLine());
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        Stack stack = new Stack();
 
+        String input = br.readLine();
         int result = 0;
 
-        int currentBarLasers = 0;
-
-        for (int i = 0; i < sb.length(); i++) {
-            if (sb.charAt(i) == '(' && sb.charAt(i + 1) == ')') {
-                sb.replace(i, i + 2, "0");
+        for (int i = 0; i < input.length(); i++) {
+            if (input.charAt(i) == '(') {
+                stack.push(input.charAt(i));
             }
-        }
-        int first = sb.indexOf("(");
-        sb.delete(0, first);
-        int i = -1;
-
-        while (sb.toString().contains("(")) {
-            if (sb.length() - 1 <= i) i = -1;
-            i++;
-            if (sb.charAt(i) == '(' && sb.charAt(i + 1) == '0') {
-                sb.deleteCharAt(i);
-                while (sb.charAt(i) != ')') {
-                    if (sb.charAt(i) == '0') {
-                        currentBarLasers++;
-                    }
-                    i++;
+            if (input.charAt(i) == ')') {
+                if (input.charAt(i - 1) == '(') {
+                    stack.pop();
+                    result += stack.size();
                 }
-                result = result + currentBarLasers + 1;
-                currentBarLasers = 0;
-                sb.deleteCharAt(i);
-                i--;
+                else if (input.charAt(i - 1) != '(') {
+                    result += 1;
+                    stack.pop();
+                }
             }
         }
-        System.out.println(result);
+        bw.write(result + "\n");
+        bw.flush();
     }
 }
