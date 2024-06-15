@@ -8,12 +8,12 @@ import java.util.Stack;
 public class PostfixExpressionConverter {
 
     private static int precedence(char ch) {
-        switch (ch) {
-            case '(' : return 0;
-            case '+' : case '-' : return 1;
-            case '*' : case '/' : return 2;
-        }
-        return -1;
+        return switch (ch) {
+            case '(' -> 0;
+            case '+', '-' -> 1;
+            case '*', '/' -> 2;
+            default -> -1;
+        };
     }
 
 
