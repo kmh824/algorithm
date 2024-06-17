@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Stack;
 
+//중위 표기식 -> 후위 표기식
 public class PostfixExpressionConverter {
 
     private static int precedence(char ch) {
