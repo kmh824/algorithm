@@ -4,20 +4,24 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-//알파벳 개수
-public class AlphabetCounter {
+
+public class AlphabetFinder {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb  = new StringBuilder();
+
         String str = br.readLine();
-        int[] counts = new int[26];
-        Arrays.fill(counts,0);
+        int[] result = new int[26];
+        Arrays.fill(result,-1);
 
         for (int i = 0; i < str.length(); i++) {
-            counts[str.charAt(i) - 97] += 1;
+            if (result[str.charAt(i) - 97] == -1){
+                result[str.charAt(i) - 97] = i;
+            }
         }
-        for (int count : counts) {
-            sb.append(count).append(" ");
+
+        for (int i : result) {
+            sb.append(i).append(" ");
         }
         System.out.println(sb);
     }
